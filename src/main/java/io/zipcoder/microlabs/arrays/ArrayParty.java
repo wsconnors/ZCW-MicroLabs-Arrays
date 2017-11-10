@@ -1,14 +1,26 @@
 package io.zipcoder.microlabs.arrays;
 
+import com.sun.deploy.util.ArrayUtil;
+import com.sun.tools.javac.util.ArrayUtils;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ArrayParty {
 
     public String printArray(String[] inputArray){
-        String output = "*** Output ***";
-        for(String string : inputArray){
-            output += "\n"+string;
-        }
-        return output;
+        String output = "*** Output ***\n";
+
+        return output + String.join("\n",Arrays.stream(inputArray).collect(Collectors.toList()));
+
+//        for(String string : inputArray){
+//            output += "\n"+string;
+//        }
+//        return output;
     }
 
     public String lastElement(String[] inputArray){
@@ -22,10 +34,13 @@ public class ArrayParty {
     }
 
     public String reverse(String[] inputArray){
-        String output = "*** Output ***";
-        for(int i = inputArray.length-1;i>=0;i--){
-            output += "\n"+inputArray[i];
-        }
+        String output = "*** Output ***\n";
+        List<String> List = Arrays.stream(inputArray).collect(Collectors.toList())
+        Collections.reverse(List);
+        return output + String.join("\n",List);
+//        for(int i = inputArray.length-1;i>=0;i--){
+//            output += "\n"+inputArray[i];
+//        }
         return output;
     }
 
@@ -42,13 +57,21 @@ public class ArrayParty {
 
     public String compress(int[] inputArray){
         String output = "*** Output ***";
+        int nums;
         int num = -1;
-        for(int i : inputArray){
-            if(i!=num){
-                output += "\n: "+i;
-                num = i;
+        //                output += "\n: "+i;
+//                num = i;
+        long count = 0L;
+        for (int i : inputArray) {
+            if (i != num) {
+                count++;
+                num = 1;
             }
         }
+        nums = (int) count;
+
+
+        //output += Arrays.stream(inputArray).filter(n -> n == num).collect(Collectors.toList());
         return output;
     }
 
@@ -59,7 +82,8 @@ public class ArrayParty {
         for(char c : inputArray){
             if(c == save){
                 output += c;
-            }else{
+            }
+            else{
                 output += ", "+c;
                 save = c;
             }
@@ -67,6 +91,10 @@ public class ArrayParty {
         return output;
     }
 
+    private static String withPre(String[] array,String pre){
+        String count = String.join("\n",Arrays.stream(array).filter(str -> str.startsWith(pre)).collect(Collectors.toList()));
 
+        return count;
+    }
 
 }
