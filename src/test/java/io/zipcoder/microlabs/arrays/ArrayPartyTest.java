@@ -92,7 +92,7 @@ public class ArrayPartyTest {
         int [] nums = {1,1,3,3,3,2,2,2,1,1,1,1,4,4,4,4};
         ArrayParty arrayParty = new ArrayParty();
 
-        String expected = "*** Output ***\n: 1\n: 3\n: 2\n: 1\n: 4";
+        String expected = "*** Output ***\n1\n3\n2\n1\n4";
 
         String actual = arrayParty.compress(nums);
 

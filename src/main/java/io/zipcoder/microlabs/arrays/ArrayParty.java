@@ -7,77 +7,69 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class ArrayParty {
 
     public String printArray(String[] inputArray){
-        String output = "*** Output ***\n";
-
-        return output + String.join("\n",Arrays.stream(inputArray).collect(Collectors.toList()));
-
-//        for(String string : inputArray){
-//            output += "\n"+string;
-//        }
-//        return output;
+        return "*** Output ***\n"+ String.join("\n",Arrays.stream(inputArray).collect(Collectors.toList()));
     }
 
     public String lastElement(String[] inputArray){
-        String output = "*** Output ***";
-        return output+= "\n"+ inputArray[inputArray.length-1];
+        return "*** Output ***\n"+ inputArray[inputArray.length-1];
     }
 
     public String lastButOne(String[] inputArray){
-        String output = "*** Output ***";
-        return output+= "\n"+ inputArray[inputArray.length-2];
+        return "*** Output ***\n"+ inputArray[inputArray.length-2];
     }
 
     public String reverse(String[] inputArray){
-        String output = "*** Output ***\n";
-        List<String> List = Arrays.stream(inputArray).collect(Collectors.toList())
-        Collections.reverse(List);
-        return output + String.join("\n",List);
-//        for(int i = inputArray.length-1;i>=0;i--){
-//            output += "\n"+inputArray[i];
-//        }
-        return output;
+        List<String> list = Arrays.stream(inputArray).collect(Collectors.toList());
+        Collections.reverse(list);
+        return "*** Output ***\n" + String.join("\n",list);
     }
 
 
-    public String isPalindrome(String[] inputArray){
+    public boolean isPalindrome(String[] inputArray){
+
+        //Arrays.stream(inputArray).;
+
         for(int i = 0 ; i<inputArray.length/2;i++){
             if(!inputArray[i].equals(inputArray[inputArray.length-1-i])){
-                return "False";
+                return false;//"False";
             }
         }
-        return "True";
+        return true;//"True";
     }
 
 
     public String compress(int[] inputArray){
-        String output = "*** Output ***";
-        int nums;
-        int num = -1;
-        //                output += "\n: "+i;
-//                num = i;
-        long count = 0L;
-        for (int i : inputArray) {
-            if (i != num) {
-                count++;
-                num = 1;
-            }
-        }
-        nums = (int) count;
-
-
-        //output += Arrays.stream(inputArray).filter(n -> n == num).collect(Collectors.toList());
-        return output;
+        List<Integer> inputList = Arrays.stream(inputArray).boxed().collect(Collectors.toList());
+        List<Integer> newList = IntStream.range(0,inputArray.length)
+                .filter(n -> ((n<inputList.size()-1 && !inputList.get(n).equals(inputList.get(n+1))) || n == inputList.size()-1))
+                .mapToObj(n -> inputList.get(n)).collect(Collectors.toList());
+        List<String> newStirngList = newList.stream().map(Object::toString).collect(Collectors.toList());
+        return "*** Output ***\n"+String.join("\n",newStirngList);
     }
 
 
     public String pack(char[] inputArray){
         String output = "*** Output ***\n: ";
+
+        Arrays.stream(String.valueOf(inputArray).split("")).forEach(letter -> {});
+
+
+        Stream<String> letters = Stream.of("Hello");
+
+        //letters.collect(Collectors.toList()).toString());
+        //Stream<Character> cStream  = Arrays.stream(inputArray);
+
+
+
         char save = inputArray[0];
         for(char c : inputArray){
             if(c == save){
@@ -91,10 +83,5 @@ public class ArrayParty {
         return output;
     }
 
-    private static String withPre(String[] array,String pre){
-        String count = String.join("\n",Arrays.stream(array).filter(str -> str.startsWith(pre)).collect(Collectors.toList()));
-
-        return count;
-    }
 
 }
